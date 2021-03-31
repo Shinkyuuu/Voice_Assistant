@@ -25,7 +25,7 @@ r = sr.Recognizer()
 
 
 def speak(audio_string):
-    tts = gTTS(text=audio_string, lang="en")
+    tts = gTTS(text=audio_string, lang="ja")
     randomFileName = random.randint(1, 10000000)
     audio_file = "audio-" + str(randomFileName) + ".mp3"
     tts.save(audio_file)
@@ -43,10 +43,8 @@ def todayTime():
 
     return time.strftime("%I:%M %p")
 
-def record(ask = False):
+def record():
     with sr.Microphone() as source:
-        if ask:
-            speak(ask)
         audio = r.listen(source)
         voice_data = ''
         try:
@@ -61,34 +59,40 @@ def record(ask = False):
 
 def respond(voice_data):
     print(voice_data)
+
+    if "hey kimchi" not in voice_data:
+        return 0
+    else:
+        speak("How can I help?")
+        
     if "banana bread" in voice_data:
         speak("I love banana bread")
 
-    if "today" and "date" in voice_data:
+    elif "today" and "date" in voice_data:
         speak("Today's date is " + todayDate())
 
-    if "what time" in voice_data:
+    elif "what time" in voice_data:
         speak("It is currently " + todayTime())
 
-    if "look" and "up" in voice_data:
-        search = record("What would you like to search?")
+    elif "look" and "up" in voice_data:
+        speak("What would you like to search?")
+        search = record()
         url = "https://google.com/search?q=" + search
         webbrowser.get().open(url)
         speak("Here is " + search + "!")
 
-    if "open" in voice_data:
+    elif "open" in voice_data:
         if "ocean" or "notion" in voice_data:
             notionOpen.start()
-        if "GitHub" in voice_data:
+        elif "GitHub" in voice_data:
             githubOpen.start()
 
-    if "stop listening" in voice_data:
+    elif "stop listening" in voice_data:
         speak("Ok, see you later!")
         exit()
+    else:
+        speak("Beep Boop")
 
-
-time.sleep(0.5)
-speak("How can I help you?")
 
 while True:
     voice_data = record()

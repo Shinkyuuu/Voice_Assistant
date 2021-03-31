@@ -63,7 +63,6 @@ def record():
 
 def respond(voice_data):
     print(voice_data)
-
     if "banana bread" in voice_data:
         speak("I love banana bread")
 
@@ -93,7 +92,7 @@ def respond(voice_data):
 
 while True:
     voice_data = record()
-    print("recording ")
+    print("recording 1")
     if "kimchi" in voice_data:
         speak("beep boop")
 

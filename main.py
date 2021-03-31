@@ -91,7 +91,7 @@ def respond(voice_data):
                 githubOpen.start()
 
         elif "off" in voice_data:
-            speak("Ok, see you later!")
+            speak("Ok, goodbye!")
             exit()
     
 

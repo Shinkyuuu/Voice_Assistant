@@ -24,7 +24,7 @@ client = NotionClient(token_v2="f443acf3104fc3090475db915c2b3d2a5ba7c19ae7985677
 
 
 #Setup Audio Recogizer
-r = sr.Recognizer()
+
 
 
 def speak(audio_string):
@@ -47,6 +47,7 @@ def todayTime():
     return time.strftime("%I:%M %p")
 
 def record():
+    r = sr.Recognizer()
     with sr.Microphone() as source:
         audio = r.listen(source)
         voice_data = ''
@@ -61,42 +62,42 @@ def record():
 
 
 def respond(voice_data):
-    activated = False
     print(voice_data)
+    if "banana bread" in voice_data:
+        speak("I love banana bread")
 
-    if "kimchi" in voice_data:
-        activated = True
-   
-    if  activated:
-        if "banana bread" in voice_data:
-            speak("I love banana bread")
+    if "today" and "date" in voice_data:
+        speak("Today's date is " + todayDate())
 
-        elif "today" and "date" in voice_data:
-            speak("Today's date is " + todayDate())
+    if "what time" in voice_data:
+        speak("It is currently " + todayTime())
 
-        elif "what time" in voice_data:
-            speak("It is currently " + todayTime())
+    if "look" and "up" in voice_data:
+        speak("What would you like to search?")
+        search = record()
+        url = "https://google.com/search?q=" + search
+        webbrowser.get().open(url)
+        speak("Here is " + search + "!")
 
-        elif "look" and "up" in voice_data:
-            speak("What would you like to search?")
-            search = record()
-            url = "https://google.com/search?q=" + search
-            webbrowser.get().open(url)
-            speak("Here is " + search + "!")
+    if "open" in voice_data:
+        if "ocean" in voice_data:
+            notionOpen.start()
+        elif "GitHub" in voice_data:
+            githubOpen.start()
 
-        elif "open" in voice_data:
-            if "ocean" or "notion" in voice_data:
-                notionOpen.start()
-            elif "GitHub" in voice_data:
-                githubOpen.start()
-
-        elif "off" in voice_data:
-            speak("Ok, goodbye!")
-            exit()
+    if "off" in voice_data:
+        speak("Ok, see you later!")
+        exit()
     
 
 while True:
     voice_data = record()
-    respond(voice_data)
+    print("recording 1")
+    if "kimchi" in voice_data:
+        speak("beep boop")
+
+        voice_data = record()
+        print("recording 2")
+        respond(voice_data)
 
 

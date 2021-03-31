@@ -25,7 +25,7 @@ r = sr.Recognizer()
 
 
 def speak(audio_string):
-    tts = gTTS(text=audio_string, lang="ja")
+    tts = gTTS(text=audio_string, lang="en")
     randomFileName = random.randint(1, 10000000)
     audio_file = "audio-" + str(randomFileName) + ".mp3"
     tts.save(audio_file)
@@ -50,7 +50,7 @@ def record():
         try:
             voice_data = r.recognize_google(audio)
         except sr.UnknownValueError:
-            speak("Sorry, I don't know what that is")
+            print("Did you say somthing")
         except sr.RequestError:
             speak("Sorry, my I am down currently!")
 
@@ -60,7 +60,7 @@ def record():
 def respond(voice_data):
     print(voice_data)
 
-    if "hey kimchi" not in voice_data:
+    if "kimchi" not in voice_data:
         return 0
     else:
         speak("How can I help?")

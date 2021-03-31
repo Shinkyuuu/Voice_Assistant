@@ -10,6 +10,9 @@ from gtts import gTTS
 from datetime import date, datetime
 
 
+os.system("cls")
+
+
 #Open File
 notionPath = "C:\\Users\\Cody\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\notion"
 notionOpen = threading.Thread( target=os.startfile, args=(notionPath,))
@@ -23,9 +26,6 @@ client = NotionClient(token_v2="f443acf3104fc3090475db915c2b3d2a5ba7c19ae7985677
 # page = client.get_block("https://www.notion.so/Cody-bf8d89e1339c4f47a0661dd75a0e7624")
 
 
-#Setup Audio Recogizer
-
-
 
 def speak(audio_string):
     tts = gTTS(text=audio_string, lang="en")
@@ -33,7 +33,7 @@ def speak(audio_string):
     audio_file = "audio-" + str(randomFileName) + ".mp3"
     tts.save(audio_file)
     playsound.playsound(audio_file)
-    print(audio_string)
+    print("- " + audio_string)
     os.remove(audio_file)
 
 
@@ -47,9 +47,12 @@ def todayTime():
     return time.strftime("%I:%M %p")
 
 def record():
+    print("~~~~recording~~~~")
     r = sr.Recognizer()
     with sr.Microphone() as source:
+        print("~~~~start listening~~~~")
         audio = r.listen(source)
+        print("~~~~Done listening~~~~")
         voice_data = ''
         try:
             voice_data = r.recognize_google(audio)
@@ -62,7 +65,7 @@ def record():
 
 
 def respond(voice_data):
-    print(voice_data)
+    print("> %10s", voice_data)
     if "banana bread" in voice_data:
         speak("I love banana bread")
 
@@ -86,18 +89,17 @@ def respond(voice_data):
             githubOpen.start()
 
     if "off" in voice_data:
-        speak("Ok, see you later!")
+        speak("Good bye!")
         exit()
     
 
 while True:
     voice_data = record()
-    print("recording 1")
+    
     if "kimchi" in voice_data:
-        speak("beep boop")
+        speak("beeeeeeep")
 
         voice_data = record()
-        print("recording 2")
         respond(voice_data)
 
 

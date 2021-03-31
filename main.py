@@ -51,13 +51,14 @@ def record():
     r = sr.Recognizer()
     with sr.Microphone() as source:
         print("~~~~start listening~~~~")
+        r.adjust_for_ambient_noise(source, duration=1)
         audio = r.listen(source)
         print("~~~~Done listening~~~~")
         voice_data = ''
         try:
             voice_data = r.recognize_google(audio)
         except sr.UnknownValueError:
-            print("Did you say somthing")
+            print("- Did you say somthing")
         except sr.RequestError:
             speak("Sorry, my I am down currently!")
 
@@ -65,7 +66,7 @@ def record():
 
 
 def respond(voice_data):
-    print("> %10s", voice_data)
+    print("> " + voice_data)
     if "banana bread" in voice_data:
         speak("I love banana bread")
 

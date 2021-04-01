@@ -32,7 +32,7 @@ page = notionClient.get_block(notionUrl)
 
 
 def speak(audio_string):
-    tts = gTTS(text=audio_string, lang="en")
+    tts = gTTS(text=audio_string, lang="en", tld="com.au")
     randomFileName = random.randint(1, 10000000)
     audio_file = "audio-" + str(randomFileName) + ".mp3"
     tts.save(audio_file)
@@ -59,7 +59,7 @@ def addToNotion(voice_data):
     elif "friday" in voice_data:
         block = notionClient.get_block('4cf5d4c8-3021-4605-a670-627c6a1563d8')
     elif "saturday" in voice_data:
-            block = notionClient.get_block('0490faca-70e5-4b57-a2a7-1888bcd50fd6')
+            block = notionClient.get_block('058defef-b6ba-49ba-bc59-9871962bd97e')
 
     newTask.move_to(block, "after")
 
@@ -68,16 +68,17 @@ def todayDate():
     today = date.today()
     return today.strftime("%B %d, %Y")
 
+
 def todayTime():
     time = datetime.now()
-
     return time.strftime("%I:%M %p")
 
+
 def record():
-    print("~~~~recording~~~~")
     r = sr.Recognizer()
+
     with sr.Microphone() as source:
-        #print("~~~~start listening~~~~")
+        print("~~~~recording~~~~")
         audio = r.listen(source)
         voice_data = ''
         try:
@@ -93,6 +94,7 @@ def record():
 def respond(voice_data):
     voice_data = voice_data.lower()
     print("> " + voice_data)
+
     if "banana bread" in voice_data:
         speak("I love banana bread")
 
@@ -140,28 +142,12 @@ def respond(voice_data):
         speak("Ok.")
         exit()
 
-# for child in page.children:
-#     try:
-#         print(child.title)
-#     except:
-#         print(child.id)
-#         for baby in child.children:
-#             try:
-#                 print(baby.title)
-#             except:
-#                 print(baby.id)
-#                 for fetus in baby.children:
-#                     try:
-#                         print(fetus.title)
-#                     except:
-#                         print(fetus.id)
-block = notionClient.get_block('693553cb-19be-4a2e-9a75-45a4dec4ff38')
+
 while True:
     voice_data = record()
     
     if "kimchi" in voice_data:
         speak("Yes")
-
         voice_data = record()
         respond(voice_data)
 

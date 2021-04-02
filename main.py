@@ -1,3 +1,10 @@
+#gtts
+#playsound
+#pipwin
+#pyaudio
+#speechrecognition
+#notion
+
 import speech_recognition as sr
 import webbrowser
 import playsound
@@ -83,7 +90,7 @@ def respond(voice_data):
         elif "GitHub" in voice_data:
             githubOpen.start()
     
-    if "add" in voice_data:
+    if "create" in voice_data:
         nq.addToNotion(voice_data)
 
     if "notion data" in voice_data:

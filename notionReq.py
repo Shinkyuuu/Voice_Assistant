@@ -11,8 +11,8 @@ page = notionClient.get_block(notionUrl)
 
 #~~~~~~~~~~~~~~Notion Task Functions~~~~~~~~~~~~~~#
 def addToNotion(voice_data):
-    cut_data = voice_data.split("add")
-    cut_data = cut_data[1].split("to")
+    cut_data = voice_data.split("create")
+    cut_data = cut_data[1].split("on")
     newTask = page.children.add_new(TodoBlock, title=cut_data[0])
 
     if "sunday" in voice_data:

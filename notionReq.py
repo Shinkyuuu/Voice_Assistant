@@ -5,7 +5,7 @@ from notion.block import TodoBlock
 #~~~~~~~~~~~~~~~~Initialize Notion~~~~~~~~~~~~~~~~#
 tokenPC='f443acf3104fc3090475db915c2b3d2a5ba7c19ae7985677cb29920aa077beb7b9e63b3785d17dc2f89ebf67cfee1ad1e0a5dc1ae632a12a5cd608f7439db945724eb7831c10e54cc92d053b5584'
 tokenLaptop='afd1cbcdaf3e3e448d978792e4d46f1f7bab281e70d653aef669eb6aa0c87186bb979acf0320cfce3a062f8871cca0fb17c11e96972818a6a3b00e5953b33d9bf4aca7d40ab4e37a7eb75fda1035'
-notionClient = NotionClient(token_v2=tokenLaptop)
+notionClient = NotionClient(token_v2=tokenPC)
 notionUrl = 'https://www.notion.so/Homework-89cc88c788254843bda8217cd56458e5'
 page = notionClient.get_block(notionUrl)
 

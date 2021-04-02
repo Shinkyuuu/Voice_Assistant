@@ -38,7 +38,7 @@ def todayTime():
 
 #~~~~~~~~~~~~~~~Core Functions~~~~~~~~~~~~~~~#
 def speak(audio_string):
-    tts = gTTS(text=audio_string, lang="en", tld="co.uk")
+    tts = gTTS(text=audio_string, lang="en", tld="com")
     randomFileName = random.randint(1, 10000000)
     audio_file = "audio-" + str(randomFileName) + ".mp3"
     tts.save(audio_file)

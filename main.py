@@ -18,10 +18,10 @@ import notionReq as nq
 
 
 #~~~~~~~~~~~~~~~~Open Files~~~~~~~~~~~~~~~~#
-notionPath = "C:\\Users\\Cody\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\notion"
+notionPath = "C:\\Users\\codys\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\notion"
 notionOpen = threading.Thread( target=os.startfile, args=(notionPath,))
 
-githubPath = "C:\\Users\\Cody\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\GitHub, Inc\\GitHub Desktop"
+githubPath = "C:\\Users\\codys\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\GitHub, Inc\\GitHub Desktop"
 githubOpen = threading.Thread(target=os.startfile, args=(githubPath,))
 
 
@@ -38,7 +38,7 @@ def todayTime():
 
 #~~~~~~~~~~~~~~~Core Functions~~~~~~~~~~~~~~~#
 def speak(audio_string):
-    tts = gTTS(text=audio_string, lang="en", tld="co.uk")
+    tts = gTTS(text=audio_string, lang="en", tld="com")
     randomFileName = random.randint(1, 10000000)
     audio_file = "audio-" + str(randomFileName) + ".mp3"
     tts.save(audio_file)
@@ -110,7 +110,7 @@ if __name__ == "__main__":
         voice_data = record()
         
         if "kimchi" in voice_data:
-            speak("Yes")
+            speak("Yes?")
             voice_data = record()
             respond(voice_data)
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#

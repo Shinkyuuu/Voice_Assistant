@@ -1,4 +1,4 @@
-#!c:\users\codys\documents\github\voice_assistant\.venv\scripts\python.exe
+#!c:\users\cody\documents\github\voice_assistant\.venv\scripts\python.exe
 # EASY-INSTALL-ENTRY-SCRIPT: 'python-slugify==4.0.1','console_scripts','slugify'
 import re
 import sys

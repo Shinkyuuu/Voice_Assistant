@@ -18,10 +18,10 @@ import notionReq as nq
 
 
 #~~~~~~~~~~~~~~~~Open Files~~~~~~~~~~~~~~~~#
-notionPath = "C:\\Users\\codys\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\notion"
+notionPath = "C:\\Users\\cody\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\notion"
 notionOpen = threading.Thread( target=os.startfile, args=(notionPath,))
 
-githubPath = "C:\\Users\\codys\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\GitHub, Inc\\GitHub Desktop"
+githubPath = "C:\\Users\\cody\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\GitHub, Inc\\GitHub Desktop"
 githubOpen = threading.Thread(target=os.startfile, args=(githubPath,))
 
 

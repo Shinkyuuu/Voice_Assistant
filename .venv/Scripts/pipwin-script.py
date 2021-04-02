@@ -1,4 +1,4 @@
-#!c:\users\codys\documents\github\voice_assistant\.venv\scripts\python.exe
+#!c:\users\cody\documents\github\voice_assistant\.venv\scripts\python.exe
 # EASY-INSTALL-ENTRY-SCRIPT: 'pipwin==0.5.1','console_scripts','pipwin'
 import re
 import sys

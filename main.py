@@ -18,10 +18,10 @@ import notionReq as nq
 
 
 #~~~~~~~~~~~~~~~~Open Files~~~~~~~~~~~~~~~~#
-notionPath = "C:\\Users\\Cody\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\notion"
+notionPath = "C:\\Users\\codys\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\notion"
 notionOpen = threading.Thread( target=os.startfile, args=(notionPath,))
 
-githubPath = "C:\\Users\\Cody\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\GitHub, Inc\\GitHub Desktop"
+githubPath = "C:\\Users\\codys\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\GitHub, Inc\\GitHub Desktop"
 githubOpen = threading.Thread(target=os.startfile, args=(githubPath,))
 
 
@@ -110,7 +110,7 @@ if __name__ == "__main__":
         voice_data = record()
         
         if "kimchi" in voice_data:
-            speak("Yes")
+            speak("Yes?")
             voice_data = record()
             respond(voice_data)
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#

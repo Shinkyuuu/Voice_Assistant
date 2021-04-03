@@ -1,6 +1,25 @@
 from notion.client import NotionClient
 from notion.block import TodoBlock
 
+#~~~~~~~~~~~~~~~~Global Variables~~~~~~~~~~~~~~~~#
+dayIDs = {
+    'sunday' : '3b52a38d-b717-45cf-a21e-a100f5a68822',
+    'monday' : '693553cb-19be-4a2e-9a75-45a4dec4ff38',
+    'tuesday' : '10eb90c4-c1ad-4779-b115-b22809c8fdd1',
+    'wednesday' : 'c031801a-9653-49ec-a470-5e64048df3a7',
+    'thursday' : '0490faca-70e5-4b57-a2a7-1888bcd50fd6',
+    'friday' : '4cf5d4c8-3021-4605-a670-627c6a1563d8',
+    'saturday' : 'ad08c41d-ef93-487b-989a-f6293a8608c6'
+}
+
+classes = {
+    '303' : 'CS 303',
+    '225' : 'EC 225',
+    '345' : 'MA 345',
+    '250' : 'PS 250',
+    '253' : 'PS 253',
+    '300' : 'SE 300'
+}
 
 #~~~~~~~~~~~~~~~~Initialize Notion~~~~~~~~~~~~~~~~#
 tokenPC='f443acf3104fc3090475db915c2b3d2a5ba7c19ae7985677cb29920aa077beb7b9e63b3785d17dc2f89ebf67cfee1ad1e0a5dc1ae632a12a5cd608f7439db945724eb7831c10e54cc92d053b5584'
@@ -11,25 +30,25 @@ page = notionClient.get_block(notionUrl)
 
 
 #~~~~~~~~~~~~~~Notion Task Functions~~~~~~~~~~~~~~#
-def addToNotion(voice_data):
-    cut_data = voice_data.split("create")
-    cut_data = cut_data[1].split("on")
-    newTask = page.children.add_new(TodoBlock, title=cut_data[0])
+def formatClassName(oldTask):
+    newTask = oldTask.split("create")
+    newTask = newTask[1].split("on")
+    newTask = newTask[0].title()
 
-    if "sunday" in voice_data:
-        block = notionClient.get_block('580c8cf6-3e31-41e6-8e8f-ae572ab5020d')
-    elif "monday" in voice_data:
-        block = notionClient.get_block('693553cb-19be-4a2e-9a75-45a4dec4ff38')
-    elif "tuesday" in voice_data:
-        block = notionClient.get_block('10eb90c4-c1ad-4779-b115-b22809c8fdd1')
-    elif "wednesday" in voice_data:
-        block = notionClient.get_block('c031801a-9653-49ec-a470-5e64048df3a7')
-    elif "thursday" in voice_data:
-            block = notionClient.get_block('0490faca-70e5-4b57-a2a7-1888bcd50fd6')
-    elif "friday" in voice_data:
-        block = notionClient.get_block('4cf5d4c8-3021-4605-a670-627c6a1563d8')
-    elif "saturday" in voice_data:
-            block = notionClient.get_block('058defef-b6ba-49ba-bc59-9871962bd97e')
+    for key, value in classes.items():
+        if key in newTask:   
+            index = newTask.index(key) + 3
+            formattedTask = value + newTask[index:]
+            return formattedTask
+    
+
+def addToNotion(voice_data):
+    for key, value in dayIDs.items():
+        if key in voice_data:
+            block = notionClient.get_block(value)
+
+    taskTitle = formatClassName(voice_data)
+    newTask = page.children.add_new(TodoBlock, title=taskTitle)
 
     newTask.move_to(block, "after")
 
@@ -38,7 +57,7 @@ def addToNotion(voice_data):
 def printNotionData():
     for child in page.children:
         try:
-            print("Child:", child.title)
+            print("Child:", child.title, "\n", child.id)
         except:
             print("Child:", child.id)
             for baby in child.children:
@@ -48,7 +67,7 @@ def printNotionData():
                     print("Baby:", baby.id)
                     for fetus in baby.children:
                         try:
-                            print("Fetus:", fetus.title)
+                            print("Fetus:", fetus.title, "\n", fetus.id)
                         except:
                             print("Fetus:", fetus.id)
                             

@@ -43,11 +43,8 @@ def speak(audio_string):
     audio_file = "audio-" + str(randomFileName) + ".mp3"
     tts.save(audio_file)
     playsound.playsound(audio_file)
-    print("1")
     print("- " + audio_string)
-    print("2")
     os.remove(audio_file)
-    print("3")
 
 
 def record():

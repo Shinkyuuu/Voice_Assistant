@@ -74,7 +74,7 @@ def respond(voice_data):
     if "what time" in voice_data:
         speak("It is currently " + todayTime())
 
-    if "look" and "up" in voice_data:
+    if ("look"  in voice_data) and ("up" in voice_data):
         speak("What would you like to search?")
         search = record()
         url = "https://google.com/search?q=" + search

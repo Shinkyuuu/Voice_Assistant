@@ -49,9 +49,8 @@ def speak(audio_string):
 
 def record():
     r = sr.Recognizer()
-
+    print("~~~~recording~~~~")
     with sr.Microphone() as source:
-        print("~~~~recording~~~~")
         audio = r.listen(source)
         voice_data = ''
         try:
@@ -82,15 +81,20 @@ def respond(voice_data):
         speak("Here is " + search + "!")
 
     if  "open" in voice_data:
-        if  "ocean" in voice_data or "notion" in voice_data:
-            notionOpen.start()
-        elif "GitHub" in voice_data:
-            githubOpen.start()
+        try:
+            if  "ocean" in voice_data or "notion" in voice_data:
+                notionOpen.start()
+            elif "GitHub" in voice_data:
+                githubOpen.start()
+        except:
+            speak("Sorry, I couldn't find it.")
     
-    if "create" in voice_data:
-        nq.addToNotion(voice_data)
+    if "add" in voice_data:
+        result = nq.addToNotion(voice_data)
+        speak(result)
 
     if "notion data" in voice_data:
+        speak("Printing notion data")
         nq.printNotionData()
         
     if "off" in voice_data:

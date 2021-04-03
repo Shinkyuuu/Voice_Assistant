@@ -4,12 +4,12 @@ from notion.block import TodoBlock
 #~~~~~~~~~~~~~~~~Global Variables~~~~~~~~~~~~~~~~#
 dayIDs = {
     'sunday' : '3b52a38d-b717-45cf-a21e-a100f5a68822',
-    'monday' : '693553cb-19be-4a2e-9a75-45a4dec4ff38',
-    'tuesday' : '10eb90c4-c1ad-4779-b115-b22809c8fdd1',
-    'wednesday' : 'c031801a-9653-49ec-a470-5e64048df3a7',
-    'thursday' : '0490faca-70e5-4b57-a2a7-1888bcd50fd6',
-    'friday' : '4cf5d4c8-3021-4605-a670-627c6a1563d8',
-    'saturday' : 'ad08c41d-ef93-487b-989a-f6293a8608c6'
+    'monday' : '21682141-e368-45d2-8ea7-606b82dddb3e',
+    'tuesday' : '1bae7f39-bcbe-4bca-8dde-c0e0007098f7',
+    'wednesday' : '374b27c9-d405-4d62-bc20-fe7e4b71afb7',
+    'thursday' : '7e8d1973-3ffa-44f7-813d-937065a758b7',
+    'friday' : 'cd2f595f-763b-4e52-9934-9268a74af31b',
+    'saturday' : '2ee471d2-ed90-4aed-a740-1c24d6f94811'
 }
 
 classes = {
@@ -31,27 +31,42 @@ page = notionClient.get_block(notionUrl)
 
 #~~~~~~~~~~~~~~Notion Task Functions~~~~~~~~~~~~~~#
 def formatClassName(oldTask):
-    newTask = oldTask.split("create")
-    newTask = newTask[1].split("on")
-    newTask = newTask[0].title()
+    oldTask = oldTask.title()
+    newTask = oldTask.split("Add")
+    formattedTask = newTask[1]
+
+    if "To" in formattedTask:
+        formattedTask = formattedTask.split("To")
+        formattedTask = formattedTask[0]
 
     for key, value in classes.items():
-        if key in newTask:   
-            index = newTask.index(key) + 3
-            formattedTask = value + newTask[index:]
-            return formattedTask
-    
+        if key in formattedTask:   
+            index = formattedTask.index(key) + 3
+            formattedTask = value + formattedTask[index:]
+            break
+
+    return formattedTask
+
 
 def addToNotion(voice_data):
+    block = page
+    day = "New"
+
     for key, value in dayIDs.items():
         if key in voice_data:
+            day = key.title()
             block = notionClient.get_block(value)
 
     taskTitle = formatClassName(voice_data)
     newTask = page.children.add_new(TodoBlock, title=taskTitle)
 
-    newTask.move_to(block, "after")
+    if day == "Sunday":
+        newTask.move_to(block, "after")
+    else:    
+        newTask.move_to(block, "last-child")
 
+    return str("Added {} to {}".format(taskTitle, day))
+   
 
 #~~~~~~~~~~~~~~~~Notion Meta~~~~~~~~~~~~~~~~#
 def printNotionData():

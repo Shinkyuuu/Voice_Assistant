@@ -98,10 +98,13 @@ def respond(voice_data):
         nq.printNotionData()
 
     if ("uncheck" not in voice_data) and ("check" in voice_data):
-        result = nq.checkTask(voice_data)
+        checkTask = threading.Thread(target=nq.checkTask, args=(voice_data))
+        checkTask.start()
     
     if "uncheck" in voice_data:
-        result = nq.unCheckTask(voice_data)
+        unCheckTask = threading.Thread(target=nq.unCheckTask, args=(voice_data))
+        unCheckTask.start()
+
         
     if "off" in voice_data:
         speak("Ok.")

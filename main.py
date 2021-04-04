@@ -96,6 +96,12 @@ def respond(voice_data):
     if "notion data" in voice_data:
         speak("Printing notion data")
         nq.printNotionData()
+
+    if ("uncheck" not in voice_data) and ("check" in voice_data):
+        result = nq.checkTask(voice_data)
+    
+    if "uncheck" in voice_data:
+        result = nq.unCheckTask(voice_data)
         
     if "off" in voice_data:
         speak("Ok.")
@@ -106,7 +112,11 @@ def respond(voice_data):
 if __name__ == "__main__":
     os.system("cls")
     speak("Kimchi online!")
-
+    # nq.addToNotion("add cs303 notes to sunday")
+    # nq.addToNotion("add cs303 test to tuesday")
+    # nq.addToNotion("add test to tuesday")
+    # nq.addToNotion("add cs303 test")
+    # nq.addToNotion("add test")
     while True:
         voice_data = record()
         

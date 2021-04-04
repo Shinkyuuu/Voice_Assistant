@@ -30,34 +30,87 @@ page = notionClient.get_block(notionUrl)
 
 
 #~~~~~~~~~~~~~~Notion Task Functions~~~~~~~~~~~~~~#
-def formatClassName(oldTask):
+def formatTaskTitle(prefix, suffix, oldTask):
     oldTask = oldTask.title()
-    newTask = oldTask.split("Add")
+    newTask = oldTask.split(prefix)
     formattedTask = newTask[1]
 
-    if "To" in formattedTask:
-        formattedTask = formattedTask.split("To")
+    if suffix in formattedTask:
+        formattedTask = formattedTask.split(suffix)
         formattedTask = formattedTask[0]
 
-    for key, value in classes.items():
-        if key in formattedTask:   
-            index = formattedTask.index(key) + 3
-            formattedTask = value + formattedTask[index:]
-            break
+    formattedTask = formatClassTitle(formattedTask)
 
     return formattedTask
 
+
+def formatClassTitle(taskTitle):
+    for key, value in classes.items():
+        if key in taskTitle:   
+            index = taskTitle.index(key) + 3
+            newTitle = value + taskTitle[index:]
+
+            return newTitle
+    return taskTitle
+    
+
+def createDayBlock(day, block, voice_data):
+    for key, value in dayIDs.items():
+        if key in voice_data:
+            day = key.title()
+            block = notionClient.get_block(value)
+        
+            return day, block
+    return day, block
+    
+def checkTask(voice_data):
+    block = page
+    day = "New"
+
+    day, block = createDayBlock(day, block, voice_data)
+    task = formatTaskTitle("Check", "On", voice_data)
+    for child in block.children:
+        try:
+            if task.strip() in child.title:
+                child.checked = True
+        except:
+            continue
+
+def unCheckTask(voice_data):
+    if "all" in voice_data:
+        uncheckAll()
+        return
+
+    block = page
+    day = "New"
+
+    day, block = createDayBlock(day, block, voice_data)
+    task = formatTaskTitle("Uncheck", "On", voice_data)
+    for child in block.children:
+        try:
+            if task.strip() in child.title:
+                child.checked = False
+        except:
+            continue
+
+
+def uncheckAll():
+    for child in page.children:
+        child.checked = False
+
+        for baby in child.children:
+            baby.checked = False
+
+            for fetus in baby.children:
+                fetus.checked = False
+    
 
 def addToNotion(voice_data):
     block = page
     day = "New"
 
-    for key, value in dayIDs.items():
-        if key in voice_data:
-            day = key.title()
-            block = notionClient.get_block(value)
-
-    taskTitle = formatClassName(voice_data)
+    day, block = createDayBlock(day, block, voice_data)
+    taskTitle = formatTaskTitle("Add", "To", voice_data)
     newTask = page.children.add_new(TodoBlock, title=taskTitle)
 
     if day == "Sunday":

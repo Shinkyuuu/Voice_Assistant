@@ -84,7 +84,7 @@ def respond(voice_data):
         try:
             if  "ocean" in voice_data or "notion" in voice_data:
                 notionOpen.start()
-            elif "GitHub" in voice_data:
+            elif "github" in voice_data:
                 githubOpen.start()
         except:
             speak("Sorry, I couldn't find it.")
@@ -98,11 +98,11 @@ def respond(voice_data):
         nq.printNotionData()
 
     if ("uncheck" not in voice_data) and ("check" in voice_data):
-        checkTask = threading.Thread(target=nq.checkTask, args=(voice_data))
+        checkTask = threading.Thread(target=nq.checkTask, args=(voice_data,))
         checkTask.start()
     
     if "uncheck" in voice_data:
-        unCheckTask = threading.Thread(target=nq.unCheckTask, args=(voice_data))
+        unCheckTask = threading.Thread(target=nq.unCheckTask, args=(voice_data,))
         unCheckTask.start()
 
         

@@ -25,7 +25,7 @@ pip install ...
 </li>
 <li>Every Saturday night, have Kimchi reset the weekly tasks (Uncheck all)</li>
 <li>
-    Help Study Korean
+    Help study Korean
     <ul>
         <li>User can record korean sentences and their meanings</li>
         <li>Kimchi will say the english sentence and the user has to say/write it in Korean</li>

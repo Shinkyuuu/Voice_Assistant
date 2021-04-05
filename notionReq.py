@@ -58,8 +58,9 @@ def createDayBlock(day, block, voice_data):
     for key, value in dayIDs.items():
         if key in voice_data:
             day = key.title()
-            block = notionClient.get_block(value)
-        
+            if key != "sunday":
+                block = notionClient.get_block(value)
+                
             return day, block
     return day, block
     
@@ -69,6 +70,7 @@ def checkTask(voice_data):
 
     day, block = createDayBlock(day, block, voice_data)
     task = formatTaskTitle("Check", "On", voice_data)
+
     for child in block.children:
         try:
             if task.strip() in child.title:

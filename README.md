@@ -14,14 +14,6 @@ pip install ...
 
 # Upcoming Features
 <ol>
-<li>
-    Help Study Korean
-    <ul>
-        <li>User can record korean sentences and their meanings</li>
-        <li>Kimchi will say the english sentence and the user has to say/write it in Korean</li>
-        <li>Like a flash card system</li>
-    </ul>
-</li>
 <li>Delete and move Notion tasks</li>
 <li>Kimchi tells you what you're schedule for the day is</li>
 <li>
@@ -32,4 +24,12 @@ pip install ...
     </ul>
 </li>
 <li>Every Saturday night, have Kimchi reset the weekly tasks (Uncheck all)</li>
+<li>
+    Help Study Korean
+    <ul>
+        <li>User can record korean sentences and their meanings</li>
+        <li>Kimchi will say the english sentence and the user has to say/write it in Korean</li>
+        <li>Like a flash card system</li>
+    </ul>
+</li>
 </ol>
